@@ -1,7 +1,6 @@
 # SoPP
 Solution of the Programming Problem
-
-    Includes Online Judge, such as [CodeEval](https://www.codeeval.com), school homeworks and other algorithms.
+    Includes Online Judge([CodeEval](https://www.codeeval.com "https://www.codeeval.com")), school homeworks and other algorithms.
 ```java
 import java.io.File;
 import java.io.FileReader;
