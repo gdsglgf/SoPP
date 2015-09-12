@@ -40,7 +40,7 @@ class Country {
 public class Kmeans {
 	public static List<Country> countrys = new ArrayList<Country>();
 	public static double[][] matrix;
-    public static double[][] particle;
+    public static double[][] centroid;
 
     public static void main (String[] args) throws FileNotFoundException {
         Scanner sc = new Scanner(new File(args[0]));
@@ -57,8 +57,8 @@ public class Kmeans {
         }
 
         specialization();
-        System.out.println("Particle initation...");
-        initParticle();
+        System.out.println("Centroid initation...");
+        initCentroid();
         System.out.println("Start iteration...");
         int times = 10;
         for (int i = 0; i < times; i++) {
@@ -84,14 +84,14 @@ public class Kmeans {
     	}
     }
 
-    public static void initParticle() {
+    public static void initCentroid() {
         int[] ref = {1, 12, 9};
         int length = matrix[0].length;
-        particle = new double[ref.length][length];
+        centroid = new double[ref.length][length];
         for (int i = 0; i < ref.length; i++) {
             for (int j = 0; j < length; j++) {
-                particle[i][j] = matrix[ref[i]][j];
-                System.out.printf("%f ", particle[i][j]);
+                centroid[i][j] = matrix[ref[i]][j];
+                System.out.printf("%f ", centroid[i][j]);
             }
             System.out.println();
         }
@@ -102,10 +102,10 @@ public class Kmeans {
         for (int i = 0; i < matrix.length; i++) {
             double min = 10000;
             int minPosition = 0;
-            for (int j = 0; j < particle.length; j++) {
+            for (int j = 0; j < centroid.length; j++) {
                 double dist = 0;
                 for (int k = 0; k < matrix[i].length; k++) {
-                    double diff = matrix[i][k] - particle[j][k];
+                    double diff = matrix[i][k] - centroid[j][k];
                     dist += diff * diff;
                 }
                 dist = Math.sqrt(dist);
@@ -118,28 +118,28 @@ public class Kmeans {
             System.out.printf("%f %d %s\n", min, minPosition, countrys.get(i).getName());
             level[i] = minPosition;
         }
-        updateParticle(level);
+        updateCentroid(level);
     }
 
-    public static void updateParticle(int[] level) {
-        System.out.println("Update Particle...");
-        for (int i = 0; i < particle.length; i++) {
-            double[] newParticle = new double[particle[0].length];
+    public static void updateCentroid(int[] level) {
+        System.out.println("Update Centroid...");
+        for (int i = 0; i < centroid.length; i++) {
+            double[] newCentroid = new double[centroid[0].length];
             int count = 0;
             for (int j = 0; j < level.length; j++) {
                 if (level[j] == i) {
-                    for (int k = 0; k < particle[0].length; k++) {
-                        newParticle[k] += matrix[j][k];
+                    for (int k = 0; k < centroid[0].length; k++) {
+                        newCentroid[k] += matrix[j][k];
                     }
                     count++;
                 }
             }
-            for (int j = 0; j < newParticle.length; j++) {
-                newParticle[j] /= count;
-                System.out.printf("%f ", newParticle[j]);
+            for (int j = 0; j < newCentroid.length; j++) {
+                newCentroid[j] /= count;
+                System.out.printf("%f ", newCentroid[j]);
             }
             System.out.println();
-            System.arraycopy(newParticle, 0, particle[i], 0, newParticle.length);
+            System.arraycopy(newCentroid, 0, centroid[i], 0, newCentroid.length);
         }
     }
 
