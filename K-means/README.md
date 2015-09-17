@@ -11,4 +11,7 @@
 ## 变量变换
 ![将具有有限值域的相异度映射到[0, a]区间](https://github.com/gdsglgf/SoPP/raw/master/K-means/VariableTransformation.jpg)
 
+## 欧几里得距离
+![](https://github.com/gdsglgf/SoPP/raw/master/K-means/EuclideanDistance.jpg)
+
 测试数据来自[博文](http://www.cnblogs.com/leoo2sk/archive/2010/09/20/k-means.html "http://www.cnblogs.com/leoo2sk/archive/2010/09/20/k-means.html")，测试结果与#47楼回复相同。
