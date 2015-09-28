@@ -1,16 +1,15 @@
-China, 50 50 9
-Japan, 28 9 4
-Korea, 17 15 3
-Iran, 25 40 5
-Saudi, 28 40 2
-Iraq, 50 50 1
-Qatar, 50 40 9
-United Arab Emirates, 50 40 9
-Uzbekistan, 40 40 5
-Thailand, 50 50 9
-Vietnam, 50 50 5
-Oman, 50 50 9
-Bahrain, 40 40 9
-North Korea, 40 32 17
-Indonesia, 50 50 9
-
+50 50 9, China
+28 9 4, Japan
+17 15 3, South Korea
+25 40 5, Iran
+28 40 2, Saudi
+50 50 1, Iraq
+50 40 9, Qatar
+50 40 9, United Arab Emirates
+40 40 5, Uzbekistan
+50 50 9, Thailand
+50 50 5, Vietnam
+50 50 9, Oman
+40 40 9, Bahrain
+40 32 17, North Korea
+50 50 9, Indonesia

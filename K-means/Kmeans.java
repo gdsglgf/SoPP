@@ -44,25 +44,30 @@ public class Kmeans {
 
     public static void main (String[] args) throws FileNotFoundException {
         Scanner sc = new Scanner(new File(args[0]));
-        String line;        
+        String line;
+        System.out.println("Input Dataset...");
         while (sc.hasNext()) {
         	line = sc.nextLine();
             line = line.trim();
             String[] elements = line.split(", ");
-            String[] data = elements[1].split(" ");
+            String[] data = elements[0].split(" ");
+			
+			System.out.println(line);
+			
             Country country = new Country();
-            country.setName(elements[0]);
+            country.setName(elements[1]);
             country.setData(data);
             countrys.add(country);
         }
 
+		System.out.println("Start specialization...");
         specialization();
         System.out.println("Centroid initation...");
         initCentroid();
         System.out.println("Start iteration...");
         int times = 10;
         for (int i = 0; i < times; i++) {
-            System.out.printf("Start iteration #%d...\n", i);
+            System.out.printf("Start iteration #%d...\r\n", i);
             iteration();
         }
         
@@ -115,7 +120,7 @@ public class Kmeans {
                 }
                 System.out.printf("%f ", dist);
             }
-            System.out.printf("%f %d %s\n", min, minPosition, countrys.get(i).getName());
+            System.out.printf("%f %d %s\r\n", min, minPosition, countrys.get(i).getName());
             level[i] = minPosition;
         }
         updateCentroid(level);
