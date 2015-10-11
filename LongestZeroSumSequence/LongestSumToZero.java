@@ -2,10 +2,69 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.ObjectInputStream.GetField;
 import java.util.*;
 
 public class LongestSumToZero {
-	public static void main (String[] args) throws IOException {
+    public static int[] toInts(String[] elements) {
+        int[] arr = new int[elements.length];
+        for (int i = 0; i < elements.length; i++) {
+            arr[i] = Integer.parseInt(elements[i]);
+        }
+        return arr;
+    }
+    
+    public static int[] addSums(int[] arr) {
+        int[] sums = new int[arr.length];
+        sums[0] = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            sums[i] = arr[i];
+            sums[i] += sums[i - 1];
+            System.out.printf("i=%d, sum=%d\n", i, sums[i]);
+        }
+        return sums;
+    }
+    
+    public static int[] findLongestSumToZeroIndex(int[] sums) {
+        Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
+        int sumOfMaxLength = sums[0];
+        int maxLength = 0;
+        char typeOfFind = 'n';  // not found
+        for (int i = 0; i < sums.length; i++) {
+              List<Integer> indexs = map.get(sums[i]);
+              if (indexs == null) {
+                    indexs = new ArrayList<Integer>();
+                    indexs.add(i);
+                    map.put(sums[i], indexs);
+              } else {
+                    indexs.add(i);
+                    int currentLength = i - indexs.get(0);
+                    if (currentLength > maxLength) {
+                        sumOfMaxLength = sums[i];
+                        maxLength = currentLength;
+                        typeOfFind = 'm';   // found in middle
+                    }
+              }
+              if (sums[i] == 0 && i + 1 >= maxLength) {
+                  sumOfMaxLength = 0;
+                  maxLength = i + 1;
+                  typeOfFind = 'l';     // found in first half of sequence
+              }
+        }
+        
+        switch(typeOfFind) {
+        case 'm':
+            int begin = map.get(sumOfMaxLength).get(0);
+            int end = begin + maxLength;
+            return new int[] {begin + 1, end};
+        case 'l':
+            return new int[] {0, maxLength - 1};
+        }
+        
+        return null;
+    }
+
+    public static void main (String[] args) throws IOException {
         File file = new File(args[0]);
         BufferedReader buffer = new BufferedReader(new FileReader(file));
         String line;
@@ -14,85 +73,20 @@ public class LongestSumToZero {
             String[] elements = line.split(" ");
 
             // string array to int array
-            int[] arr = new int[elements.length];
-    		for (int i = 0; i < elements.length; i++) {
-    			arr[i] = Integer.parseInt(elements[i]);
-    		}
+            int[] arr = toInts(elements);
 
             // sums from 0 to i element
-    		int[] sums = new int[arr.length];
-            sums[0] = arr[0];
-            for (int i = 1; i < arr.length; i++) {
-            	sums[i] = arr[i];
-            	sums[i] += sums[i - 1];
-//            	System.out.printf("i=%d, sum=%d\n", i, sums[i]);
-            }
-
-            // store indexs(as value) with the same sum(as key) in map
-            Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
-            List<Integer> indexs = null;
-            for (int i = 0; i < sums.length; i++) {
-                  indexs = map.get(sums[i]);
-                  if (indexs == null) {
-                        indexs = new ArrayList<Integer>();
-                        indexs.add(i);
-                        map.put(sums[i], indexs);
-                  } else {
-                        indexs.add(i);
-                  }
-            }
-
-
-            int maxLength = 0;
-            int resultSum = 0;
-            int from = 0;
-            int to = 0;
-
-            // find the longest sequence that sum is not equal to zero
-            for (int i = 0; i < sums.length; i++) {
-            	if (sums[i] != 0) {
-            		indexs = map.get(sums[i]);
-            		int size = indexs.size();
-            		if (size > 1) {
-            			int curLength = indexs.get(size - 1) - indexs.get(0) + 1;
-            			if (curLength > maxLength) {
-            				maxLength = curLength;
-            				from = indexs.get(0);
-            				to = indexs.get(size - 1);
-            				resultSum = sums[i];
-            			}
-            		}
-            	}
-            }
-
-            // 
-            indexs = map.get(0);
-            if (indexs != null) {
-            	int curLength = indexs.get(indexs.size() - 1) + 1;
-            	if (maxLength <= curLength) {
-            		maxLength = curLength;
-            		from = 0;
-            		to = curLength - 1;
-            		resultSum = 0;
-            	}
-            }
-
-            if (resultSum == 0) {
-            	if (from == to && arr[from] != 0) {
-            		System.out.println("Longest suquence with sum to zero not found!");
-            		continue;
-            	}
-            	for (int i = from; i <= to; i++) {
-            		System.out.printf("%d ", arr[i]);
-            	}
-            } else {
-            	for (int i = from + 1; i <= to; i++) {
-            		System.out.printf("%d ", arr[i]);
-            	}
-            }
+            int[] sums = addSums(arr);
             
-            System.out.println();
-
+            int[] indexs = findLongestSumToZeroIndex(sums);
+            if (indexs == null) {
+                System.out.println("False");
+            } else {
+                for (int i = indexs[0]; i <= indexs[1]; i++) {
+                    System.out.printf("%d ", arr[i]);
+                }
+                System.out.println();
+            }
         }
     }
 }
