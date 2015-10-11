@@ -90,7 +90,7 @@ public class Kmeans {
     }
 
     public static void initCentroid() {
-        int[] ref = {1, 12, 9};
+        int[] ref = {0, 1, 2};	//{1, 12, 9};
         int length = matrix[0].length;
         centroid = new double[ref.length][length];
         for (int i = 0; i < ref.length; i++) {
