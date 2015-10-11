@@ -20,7 +20,7 @@ public class LongestSumToZero {
         for (int i = 1; i < arr.length; i++) {
             sums[i] = arr[i];
             sums[i] += sums[i - 1];
-            System.out.printf("i=%d, sum=%d\n", i, sums[i]);
+//            System.out.printf("i=%d, sum=%d\n", i, sums[i]);
         }
         return sums;
     }
