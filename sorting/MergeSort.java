@@ -11,7 +11,7 @@ public class MergeSort {
 		int i = 0;
 		int j = 0;
 		int k = p;
-		while (i != n1 && j != n2) {
+		while (i < n1 && j < n2) {
 			if (left[i] <= right[j]) {
 				data[k] = left[i];
 				i++;
