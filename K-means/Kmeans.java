@@ -5,41 +5,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Country {
-    public String getName() {
-        return name;
-    }
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setData(String[] dataString) {
-		this.data = new int[dataString.length];
-		for (int i = 0; i < dataString.length; i++) {
-			data[i] = Integer.parseInt(dataString[i]);
-		}
-	}
-
-	public int getData(int i) {
-		return data[i];
-	}
-
-	public int getDataLength() {
-		return data.length;
-	}
-
-	public String toString() {
-		return String.format("%s,%s", name, Arrays.toString(data));
-	}
-
-	private String name;
-	private int[] data;
-}
-
 public class Kmeans {
-	public static List<Country> countrys = new ArrayList<Country>();
-	public static double[][] matrix;
+    public static List<Country> countrys = new ArrayList<Country>();
+    public static double[][] matrix;
     public static double[][] centroid;
 
     public static void main (String[] args) throws FileNotFoundException {
@@ -47,20 +15,20 @@ public class Kmeans {
         String line;
         System.out.println("Input Dataset...");
         while (sc.hasNext()) {
-        	line = sc.nextLine();
+            line = sc.nextLine();
             line = line.trim();
             String[] elements = line.split(", ");
             String[] data = elements[0].split(" ");
-			
-			System.out.println(line);
-			
+            
+            System.out.println(line);
+            
             Country country = new Country();
             country.setName(elements[1]);
             country.setData(data);
             countrys.add(country);
         }
 
-		System.out.println("Start specialization...");
+        System.out.println("Start specialization...");
         specialization();
         System.out.println("Centroid initation...");
         initCentroid();
@@ -74,23 +42,23 @@ public class Kmeans {
     }
 
     public static void specialization() {
-    	matrix = new double[countrys.size()][countrys.get(0).getDataLength()];
-    	int m = 0;
-    	for (Country c : countrys) {
-    		int length = c.getDataLength();
-    		for (int i = 0; i < length; i++) {
-    			int max = getMax(i);
-    			int min = getMin(i);
-    			matrix[m][i] = (c.getData(i) - min) * 1.0 / (max - min);
-    			System.out.printf("%f ", matrix[m][i]);
-    		}
-    		m++;
-    		System.out.println();
-    	}
+        matrix = new double[countrys.size()][countrys.get(0).getDataLength()];
+        int m = 0;
+        for (Country c : countrys) {
+            int length = c.getDataLength();
+            for (int i = 0; i < length; i++) {
+                int max = getMax(i);
+                int min = getMin(i);
+                matrix[m][i] = (c.getData(i) - min) * 1.0 / (max - min);
+                System.out.printf("%f ", matrix[m][i]);
+            }
+            m++;
+            System.out.println();
+        }
     }
 
     public static void initCentroid() {
-        int[] ref = {0, 1, 2};	//{1, 12, 9};
+        int[] ref = {0, 1, 2};    //{1, 12, 9};
         int length = matrix[0].length;
         centroid = new double[ref.length][length];
         for (int i = 0; i < ref.length; i++) {
@@ -149,29 +117,29 @@ public class Kmeans {
     }
 
     public static int getMax(int index) {
-    	int max = countrys.get(0).getData(index);
-    	int length = countrys.size();
-    	for (int i = 1; i < length; i++) {
-    		Country country = countrys.get(i);
-    		int data = country.getData(index);
-    		if (data > max) {
-    			max = data;
-    		}
-    	}
-    	return max;
+        int max = countrys.get(0).getData(index);
+        int length = countrys.size();
+        for (int i = 1; i < length; i++) {
+            Country country = countrys.get(i);
+            int data = country.getData(index);
+            if (data > max) {
+                max = data;
+            }
+        }
+        return max;
     }
 
     public static int getMin(int index) {
-    	int min = countrys.get(0).getData(index);
-    	int length = countrys.size();
-    	for (int i = 1; i < length; i++) {
-    		Country country = countrys.get(i);
-    		int data = country.getData(index);
-    		if (data < min) {
-    			min = data;
-    		}
-    	}
-    	return min;
+        int min = countrys.get(0).getData(index);
+        int length = countrys.size();
+        for (int i = 1; i < length; i++) {
+            Country country = countrys.get(i);
+            int data = country.getData(index);
+            if (data < min) {
+                min = data;
+            }
+        }
+        return min;
     }
 
 }
