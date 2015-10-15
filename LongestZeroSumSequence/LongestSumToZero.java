@@ -6,6 +6,11 @@ import java.io.ObjectInputStream.GetField;
 import java.util.*;
 
 public class LongestSumToZero {
+    /**
+     * 将字符串类型的整数数组转换成整数类型的数组
+     * @param elements 字符串类型的整数数组
+     * @return 整数类型的数组
+     */
     public static int[] toInts(String[] elements) {
         int[] arr = new int[elements.length];
         for (int i = 0; i < elements.length; i++) {
@@ -13,19 +18,28 @@ public class LongestSumToZero {
         }
         return arr;
     }
-    
+
+    /**
+     * 计算数组前i项和, 使用数组返回
+     * @param arr 整数数组
+     * @return 前i项和数组
+     */
     public static int[] addSums(int[] arr) {
         int[] sums = new int[arr.length];
         sums[0] = arr[0];
         for (int i = 1; i < arr.length; i++) {
             sums[i] = arr[i];
             sums[i] += sums[i - 1];
-//            System.out.printf("i=%d, sum=%d\n", i, sums[i]);
         }
         return sums;
     }
     
-    public static int[] findLongestSumToZeroIndex(int[] sums) {
+    /**
+     * 使用HashMap进行查找
+     * @param sums 数组前i项和
+     * @return 如果未找到, 返回null; 反之, 返回整型数组{起始下标, 结束下标}.
+     */
+    public static int[] findLongestSumToZeroIndexUsingMap(int[] sums) {
         Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
         int sumOfMaxLength = sums[0];
         int maxLength = 0;
@@ -64,6 +78,57 @@ public class LongestSumToZero {
         return null;
     }
 
+    /**
+     * 使用数组遍历方式进行查找
+     * @param sums 数组前i项和
+     * @return 如果未找到, 返回null; 反之, 返回整型数组{起始下标, 结束下标}.
+     */
+    public static int[] findLongestSumToZeroIndex(int[] sums) {
+        int from = 0;
+        int to = -1;
+        for (int i = 0; i < sums.length; i++) {
+            if (sums[i] == 0) {
+                if (i + 1 > to - from + 1) {
+                    from = 0;
+                    to = i;
+                }
+            } else {
+                int lastIndex = i;
+                for (int j = sums.length - 1; j > i; j--) {
+                    if (sums[j] == sums[i]) {
+                        lastIndex = j;
+                        break;
+                    }
+                }
+                if (lastIndex != i && lastIndex - i > to - from + 1) {
+                    from = i + 1;
+                    to = lastIndex;
+                }
+            }
+        }
+        if (to == -1) {
+            return null;    // not found
+        } else {
+            return new int[] {from, to};
+        }
+    }
+    
+    /**
+     * 显示查找结果
+     * @param indexs 查找结果
+     * @param arr 输入数组
+     */
+    private static void showResult(int[] indexs, int[] arr) {
+    	if (indexs == null) {
+            System.out.println("False");
+        } else {
+            for (int i = indexs[0]; i <= indexs[1]; i++) {
+                System.out.printf("%d ", arr[i]);
+            }
+            System.out.println();
+        }
+    }
+
     public static void main (String[] args) throws IOException {
         File file = new File(args[0]);
         BufferedReader buffer = new BufferedReader(new FileReader(file));
@@ -78,15 +143,10 @@ public class LongestSumToZero {
             // sums from 0 to i element
             int[] sums = addSums(arr);
             
-            int[] indexs = findLongestSumToZeroIndex(sums);
-            if (indexs == null) {
-                System.out.println("False");
-            } else {
-                for (int i = indexs[0]; i <= indexs[1]; i++) {
-                    System.out.printf("%d ", arr[i]);
-                }
-                System.out.println();
-            }
+            System.out.println("Calling findLongestSumToZeroIndex...");
+            showResult(findLongestSumToZeroIndex(sums), arr);
+            System.out.println("Calling findLongestSumToZeroIndexUsingMap...");
+            showResult(findLongestSumToZeroIndexUsingMap(sums), arr);
         }
     }
 }
