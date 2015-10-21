@@ -1,0 +1,40 @@
+import java.util.Arrays;
+
+public class HeapSort {
+    private static void maxHeapify(int[] data, int heapSize, int i) {
+        int l = 2 * i + 1;
+        int r = l + 1;
+        int largest = i;
+        if (l < heapSize && data[l] > data[i]) {
+            largest = l;
+        }
+        if (r < heapSize && data[r] > data[largest]) {
+            largest = r;
+        }
+        if (largest != i) {
+            CommUtil.swap(data, i, largest);
+            maxHeapify(data, heapSize, largest);
+        }
+    }
+
+    private static void buildMaxHeap(int[] data, int heapSize) {
+        for (int i = heapSize / 2 - 1; i >= 0; i--) {
+            maxHeapify(data, heapSize, i);
+        }
+    }
+
+    public static void heapSort(int[] data) {        
+        for (int i = data.length; i > 0; i--) {
+            buildMaxHeap(data, i);
+            System.out.println(i + Arrays.toString(data));
+            CommUtil.swap(data, 0, i - 1);
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] data = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+        System.out.println(Arrays.toString(data));
+        heapSort(data);
+        System.out.println(Arrays.toString(data));
+    }
+}
