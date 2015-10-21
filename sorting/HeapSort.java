@@ -23,11 +23,14 @@ public class HeapSort {
         }
     }
 
-    public static void heapSort(int[] data) {        
+    public static void heapSort(int[] data) {
+        buildMaxHeap(data, data.length);
+        int heapSize = data.length;
         for (int i = data.length; i > 0; i--) {
-            buildMaxHeap(data, i);
-            System.out.println(i + Arrays.toString(data));
             CommUtil.swap(data, 0, i - 1);
+            heapSize--;
+            maxHeapify(data, heapSize, 0);
+            System.out.println(i + Arrays.toString(data));            
         }
     }
 
