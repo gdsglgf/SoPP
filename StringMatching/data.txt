@@ -1,0 +1,5 @@
+helloword | low
+helloword | nice
+helloword | word
+helloword | he
+helloword | hellowordapp
