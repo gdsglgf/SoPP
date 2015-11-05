@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.File;
 
+/** 蛮力搜索算法 */
 public class BruteForce {
     public static int match(String text, String pattern) {
         if (text == null || pattern == null || pattern.equals("")) {
@@ -14,13 +15,13 @@ public class BruteForce {
         for (int i = 0; i <= size; i++) {
             boolean isMatch = true;
             for (int j = i, k = 0; k < patternLength; k++, j++) {
-                if (text.charAt(j) != pattern.charAt(k)) {
-                    isMatch = false;
+                if (text.charAt(j) != pattern.charAt(k)) {  // 从右向左比较
+                    isMatch = false;    // 未匹配成功
                     break;
                 }
             }
             if (isMatch) {
-                return i;
+                return i;    // 匹配成功, 返回
             }
         }
         return -1;
