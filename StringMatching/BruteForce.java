@@ -15,7 +15,7 @@ public class BruteForce {
         for (int i = 0; i <= size; i++) {
             boolean isMatch = true;
             for (int j = i, k = 0; k < patternLength; k++, j++) {
-                if (text.charAt(j) != pattern.charAt(k)) {  // 从右向左比较
+                if (text.charAt(j) != pattern.charAt(k)) {  // 从左向右比较
                     isMatch = false;    // 未匹配成功
                     break;
                 }
