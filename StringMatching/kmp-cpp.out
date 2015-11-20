@@ -1,0 +1,30 @@
+0 0 1 2 3 4 5 6 0 1 
+Pattern occurs with shift:4
+-1 -1 0 1 2 3 4 5 -1 0 
+Found: 4
+0 0 
+Pattern occurs with shift:0
+Pattern occurs with shift:3
+Pattern occurs with shift:5
+Pattern occurs with shift:7
+Pattern occurs with shift:9
+Pattern occurs with shift:14
+-1 -1 
+Found: 0
+Found: 3
+Found: 5
+Found: 7
+Found: 9
+Found: 14
+-1 -1 
+Found: 4
+Found: 6
+Found: 8
+Found: 10
+Found: 13
+Found: 15
+-1 -1 0 
+Found: 4
+Found: 6
+Found: 8
+Found: 13
