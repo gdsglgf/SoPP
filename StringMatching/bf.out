@@ -1,0 +1,23 @@
+test string matching...
+helloword|word:5, 5 | 5, 5, 5
+level|e:1, 1 | 3, 3, 3
+apple|appld:-1, -1 | -1, -1, -1
+apple|app:0, 0 | 0, 0, 0
+banana|na:2, 2 | 4, 4, 4
+ababc|ba:1, 1 | 1, 1, 1
+abcabd|ba:-1, -1 | -1, -1, -1
+abcabd|bd:4, 4 | 4, 4, 4
+abcabd|cab:2, 2 | 2, 2, 2
+abcabd|tencent:-1, -1 | -1, -1, -1
+user define strcmp...
+111>9: -8
+123>1234: -52
+123>12: 51
+123>0: 1
+123>123: 0
+c standard strcmp...
+111>9: -1
+123>1234: -1
+123>12: 1
+123>0: 1
+123>123: 0
