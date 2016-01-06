@@ -2,8 +2,10 @@ import java.util.Arrays;
 
 public class HeapSort {
     private static void maxHeapify(int[] data, int heapSize, int i) {
-        int l = 2 * i + 1;
-        int r = l + 1;
+        int l = 2 * i + 1;      // left child
+        int r = l + 1;      // right child
+
+        // find largest index in [i, l, r]
         int largest = i;
         if (l < heapSize && data[l] > data[i]) {
             largest = l;
@@ -11,6 +13,7 @@ public class HeapSort {
         if (r < heapSize && data[r] > data[largest]) {
             largest = r;
         }
+
         if (largest != i) {
             CommUtil.swap(data, i, largest);
             maxHeapify(data, heapSize, largest);

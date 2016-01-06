@@ -15,14 +15,14 @@ public class RadixSort {
             for (int j = 0; j < data.length; j++) {
                 int mod = ((data[j] / n) % DECEM);
                 List<Integer> list = radix.get(mod);
-                list.add(data[j]);
+                list.add(data[j]);      // put the data[j] into radix in order
             }
             int index = 0;
             for (int j = 0; j < DECEM; j++) {
                 List<Integer> list = radix.get(j);
                 int length = list.size();
                 for (int k = 0; k < length; k++) {
-                    data[index] = list.get(k);
+                    data[index] = list.get(k);      // sort the data
                     index++;
                 }
             }
