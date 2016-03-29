@@ -38,15 +38,13 @@ public class QuickSort {
             j = (int)s.pop();
 
             p = partition(data, i, j);
-
             
-            if (j > p) {
+            if (j > p + 1) {
                 s.push(j);
                 s.push(p + 1);
-
             }
 
-            if (i < p) {
+            if (i < p - 1) {
                 s.push(p - 1);
                 s.push(i);
             }
