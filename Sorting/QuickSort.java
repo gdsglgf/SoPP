@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Stack;
 
 public class QuickSort {
     private static int partition(int[] data, int p, int q) {
@@ -26,10 +27,37 @@ public class QuickSort {
         quickSort(data, 0, data.length - 1);
     }
 
+    public static void quickSortUsingStack(int[] data) {
+        Stack s = new Stack();
+        s.push(data.length - 1);
+        s.push(0);
+
+        int i, j, p;
+        while (s.empty() == false) {
+            i = (int)s.pop();
+            j = (int)s.pop();
+
+            p = partition(data, i, j);
+
+            
+            if (j > p) {
+                s.push(j);
+                s.push(p + 1);
+
+            }
+
+            if (i < p) {
+                s.push(p - 1);
+                s.push(i);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         int[] data = {9, 8, 7, 6, 5, 4, 3, 2, 1};
         System.out.println(Arrays.toString(data));
-        quickSort(data);
+        // quickSort(data);
+        quickSortUsingStack(data);
         System.out.println(Arrays.toString(data));
     }
 }
