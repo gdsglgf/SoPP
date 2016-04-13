@@ -32,7 +32,7 @@ int zeroOnePack(int n, int v) {
 }
 
 /*
-递归输出0-1背包选择的物品
+升序输出0-1背包选择的物品
 @param i 物品编号(从1开始)
 @param j 背包体积
 */
@@ -46,6 +46,21 @@ void showZeroOnePackItem(int i, int j) {
         printf("%d ", i);   // 物品i在背包中
     } else {
         showZeroOnePackItem(i - 1, j);
+    }
+}
+
+/**
+降序输出0-1背包选择的物品
+@param n 物品数量
+@param v 背包体积
+*/
+void showZeroOnePackItemDesc(int n, int v) {
+    int i, j = v;
+    for (i = n; i > 0; i--) {
+        if (data[i][j] != data[i - 1][j]) {
+            printf("%d ", i);
+            j -= cost[i - 1];
+        }
     }
 }
 
@@ -78,6 +93,8 @@ void fullZeroOnePack(int n, int v) {
     printf("full 01 pack:%d\n", data[n][v]);
     printf("item list:\n");
     showZeroOnePackItem(n, v);
+    printf("\n");
+    showZeroOnePackItemDesc(n, v);
     printf("\n-------------\n");
 }
 
@@ -98,7 +115,7 @@ int completePack(int n, int v) {
 }
 
 /*
-递归输出完全背包选择的物品
+升序输出完全背包选择的物品
 @param i 物品编号(从1开始)
 @param j 背包体积
 */
@@ -112,6 +129,23 @@ void showCompletePackItem(int i, int j) {
         printf("%d ", i);   // 物品i在背包中
     } else {
         showCompletePackItem(i - 1, j);
+    }
+}
+
+/**
+降序输出完全背包选择的物品
+@param n 物品数量
+@param v 背包体积
+*/
+void showCompletePackItemDesc(int n, int v) {
+    int i, j = v;
+    for (i = n; i > 0; ) {
+        if (data[i][j] != data[i - 1][j]) {
+            printf("%d ", i);
+            j -= cost[i - 1];
+        } else {
+            i--;
+        }
     }
 }
 
@@ -144,6 +178,8 @@ void fullCompletePack(int n, int v) {
     printf("full comp pack:%d\n", data[n][v]);
     printf("item list:\n");
     showCompletePackItem(n, v);
+    printf("\n");
+    showCompletePackItemDesc(n, v);
     printf("\n-------------\n");
 }
 
