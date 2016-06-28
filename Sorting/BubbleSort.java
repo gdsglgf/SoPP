@@ -3,11 +3,17 @@ import java.util.Arrays;
 public class BubbleSort {
     public static void bubbleSort(int[] data) {
         int last = data.length - 1;
+        boolean sorted;
         for (int i = 0; i < last; i++) {
+            sorted = true;
             for (int j = last; j > i; j--) {
                 if (data[j] < data[j - 1]) {
                     CommUtil.swap(data, j, j - 1);
+                    sorted = false;
                 }
+            }
+            if (sorted) {
+                break;
             }
             System.out.println(Arrays.toString(data));
         }
