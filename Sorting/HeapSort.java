@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class HeapSort {
-    private static void maxHeapify(int[] data, int heapSize, int i) {
+    private static void maxHeapify1(int[] data, int heapSize, int i) {
         int l = 2 * i + 1;      // left child
         int r = l + 1;      // right child
 
@@ -18,6 +18,29 @@ public class HeapSort {
             CommUtil.swap(data, i, largest);
             maxHeapify(data, heapSize, largest);
         }
+    }
+
+    private static void maxHeapify(int[] data, int heapSize, int i) {
+        while (true) {
+            int l = 2 * i + 1;      // left child
+            int r = l + 1;      // right child
+
+            // find largest index in [i, l, r]
+            int largest = i;
+            if (l < heapSize && data[l] > data[i]) {
+                largest = l;
+            }
+            if (r < heapSize && data[r] > data[largest]) {
+                largest = r;
+            }
+
+            if (largest != i) {
+                CommUtil.swap(data, i, largest);
+                i = largest;
+            } else {
+                break;
+            }
+        }            
     }
 
     private static void buildMaxHeap(int[] data, int heapSize) {
