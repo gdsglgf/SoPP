@@ -1,3 +1,4 @@
+import os
 import sys
 version = sys.version_info[0]
 if version == 3:	# python 3
@@ -92,4 +93,13 @@ if __name__ == '__main__':
 	test_word_id()
 	test_sorted()
 	test_version()
-	find_anagram('cet4-words.txt')
+
+	# print(sys.argv)
+	filename = 'cet4-words.txt'
+	if len(sys.argv) == 2:
+		filename = sys.argv[1]
+
+	if os.path.isfile(filename):
+		find_anagram(filename)
+	else:
+		print('File not found: %s!\nUsage: python anagram.py file' %(filename))
