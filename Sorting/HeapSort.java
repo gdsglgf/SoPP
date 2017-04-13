@@ -1,37 +1,18 @@
 import java.util.Arrays;
 
 public class HeapSort {
-    private static void maxHeapify1(int[] data, int heapSize, int i) {
-        int l = 2 * i + 1;      // left child
-        int r = l + 1;      // right child
-
-        // find largest index in [i, l, r]
-        int largest = i;
-        if (l < heapSize && data[l] > data[i]) {
-            largest = l;
-        }
-        if (r < heapSize && data[r] > data[largest]) {
-            largest = r;
-        }
-
-        if (largest != i) {
-            CommUtil.swap(data, i, largest);
-            maxHeapify(data, heapSize, largest);
-        }
-    }
-
     private static void maxHeapify(int[] data, int heapSize, int i) {
         while (true) {
-            int l = 2 * i + 1;      // left child
-            int r = l + 1;      // right child
+            int x = 2 * i + 1;      // left child
+            int y = x + 1;      // right child
 
-            // find largest index in [i, l, r]
+            // find largest index in [i, x, y]
             int largest = i;
-            if (l < heapSize && data[l] > data[i]) {
-                largest = l;
+            if (x < heapSize && data[x] > data[i]) {
+                largest = x;
             }
-            if (r < heapSize && data[r] > data[largest]) {
-                largest = r;
+            if (y < heapSize && data[y] > data[largest]) {
+                largest = y;
             }
 
             if (largest != i) {
@@ -52,11 +33,11 @@ public class HeapSort {
     public static void heapSort(int[] data) {
         buildMaxHeap(data, data.length);
         int heapSize = data.length;
-        for (int i = data.length; i > 0; i--) {
-            CommUtil.swap(data, 0, i - 1);
+        for (int i = data.length - 1; i >= 0; i--) {
+            CommUtil.swap(data, 0, i);
             heapSize--;
             maxHeapify(data, heapSize, 0);
-            System.out.println(i + Arrays.toString(data));            
+            // System.out.println(i + Arrays.toString(data));            
         }
     }
 
